@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icon/new.png</file>
+        <file>icon/open.png</file>
+        <file>icon/recover.png</file>
+        <file>icon/save.png</file>
+        <file>icon/cancel.png</file>
+        <file>icon/saveAs.png</file>
+    </qresource>
+</RCC>
