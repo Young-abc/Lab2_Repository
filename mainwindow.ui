@@ -117,6 +117,21 @@
    <addaction name="actionSave"/>
    <addaction name="actionSaveAs"/>
    <addaction name="separator"/>
+   <addaction name="actionReture"/>
+   <addaction name="actionRecover"/>
+   <addaction name="actionCut"/>
+   <addaction name="actionCopy"/>
+   <addaction name="actionPaste"/>
+   <addaction name="separator"/>
+   <addaction name="actionFind"/>
+   <addaction name="actionReplace"/>
+   <addaction name="separator"/>
+   <addaction name="actionFont"/>
+   <addaction name="actionShowLineNum"/>
+   <addaction name="actionWrap"/>
+   <addaction name="separator"/>
+   <addaction name="actionToolBar"/>
+   <addaction name="actionStatusBar"/>
   </widget>
   <action name="actionNew">
    <property name="icon">
@@ -124,10 +139,13 @@
      <normaloff>:/icon/new.png</normaloff>:/icon/new.png</iconset>
    </property>
    <property name="text">
-    <string>新建</string>
+    <string>新建(&amp;N)</string>
    </property>
    <property name="toolTip">
     <string>新建</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -139,10 +157,13 @@
      <normaloff>:/icon/open.png</normaloff>:/icon/open.png</iconset>
    </property>
    <property name="text">
-    <string>打开</string>
+    <string>打开(&amp;O)</string>
    </property>
    <property name="toolTip">
     <string>打开</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -154,10 +175,13 @@
      <normaloff>:/icon/save.png</normaloff>:/icon/save.png</iconset>
    </property>
    <property name="text">
-    <string>保存</string>
+    <string>保存(S)</string>
    </property>
    <property name="toolTip">
     <string>保存</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -169,7 +193,7 @@
      <normaloff>:/icon/saveAs.png</normaloff>:/icon/saveAs.png</iconset>
    </property>
    <property name="text">
-    <string>另存为</string>
+    <string>另存为(&amp;A)</string>
    </property>
    <property name="toolTip">
     <string>另存为</string>
@@ -190,17 +214,28 @@
    </property>
   </action>
   <action name="actionReture">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/cancel.png</normaloff>:/icon/cancel.png</iconset>
+   </property>
    <property name="text">
-    <string>撤销</string>
+    <string>撤销(&amp;U)</string>
    </property>
    <property name="toolTip">
     <string>撤销</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionRecover">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/recover.png</normaloff>:/icon/recover.png</iconset>
+   </property>
    <property name="text">
     <string>恢复</string>
    </property>
@@ -212,55 +247,90 @@
    </property>
   </action>
   <action name="actionCut">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/cut.png</normaloff>:/icon/cut.png</iconset>
+   </property>
    <property name="text">
-    <string>剪切</string>
+    <string>剪切(&amp;T)</string>
    </property>
    <property name="toolTip">
     <string>剪切</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionCopy">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/copy.png</normaloff>:/icon/copy.png</iconset>
+   </property>
    <property name="text">
-    <string>复制</string>
+    <string>复制(&amp;C)</string>
    </property>
    <property name="toolTip">
     <string>复制</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionPaste">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/paste.png</normaloff>:/icon/paste.png</iconset>
+   </property>
    <property name="text">
-    <string>粘贴</string>
+    <string>粘贴(&amp;P)</string>
    </property>
    <property name="toolTip">
     <string>粘贴</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionFind">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/find.png</normaloff>:/icon/find.png</iconset>
+   </property>
    <property name="text">
-    <string>查找</string>
+    <string>查找(&amp;F)</string>
    </property>
    <property name="toolTip">
     <string>查找</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionReplace">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/replace.png</normaloff>:/icon/replace.png</iconset>
+   </property>
    <property name="text">
-    <string>替换</string>
+    <string>替换(&amp;R)</string>
    </property>
    <property name="toolTip">
     <string>替换</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -268,40 +338,62 @@
   </action>
   <action name="actionSelectAll">
    <property name="text">
-    <string>全选</string>
+    <string>全选(&amp;A)</string>
    </property>
    <property name="toolTip">
     <string>全选</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionWrap">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/wrap.png</normaloff>:/icon/wrap.png</iconset>
+   </property>
    <property name="text">
-    <string>自动换行</string>
+    <string>自动换行(&amp;W)</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionShowLineNum">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/linenum.png</normaloff>:/icon/linenum.png</iconset>
+   </property>
    <property name="text">
-    <string>显示行号</string>
+    <string>显示行号(&amp;L)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionFont">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/font.png</normaloff>:/icon/font.png</iconset>
+   </property>
    <property name="text">
-    <string>字体</string>
+    <string>字体(&amp;F)</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionFontColor">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/color.png</normaloff>:/icon/color.png</iconset>
+   </property>
    <property name="text">
     <string>字体颜色</string>
    </property>
@@ -326,24 +418,36 @@
    </property>
   </action>
   <action name="actionToolBar">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/tools.png</normaloff>:/icon/tools.png</iconset>
+   </property>
    <property name="text">
-    <string>工具栏</string>
+    <string>工具栏(&amp;T)</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionStatusBar">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/status.png</normaloff>:/icon/status.png</iconset>
+   </property>
    <property name="text">
-    <string>状态栏</string>
+    <string>状态栏(&amp;S)</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/about.png</normaloff>:/icon/about.png</iconset>
+   </property>
    <property name="text">
-    <string>关于</string>
+    <string>关于(&amp;A)</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

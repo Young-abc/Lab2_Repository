@@ -6,5 +6,19 @@
         <file>icon/save.png</file>
         <file>icon/cancel.png</file>
         <file>icon/saveAs.png</file>
+        <file>icon/color.png</file>
+        <file>icon/copy.png</file>
+        <file>icon/cut.png</file>
+        <file>icon/find.png</file>
+        <file>icon/font.png</file>
+        <file>icon/linenum.png</file>
+        <file>icon/paste.png</file>
+        <file>icon/replace.png</file>
+        <file>icon/reture.png</file>
+        <file>icon/status.png</file>
+        <file>icon/tools.png</file>
+        <file>icon/wrap.png</file>
+        <file>../samp2_4App/images/BLD.BMP</file>
+        <file>icon/about.png</file>
     </qresource>
 </RCC>
