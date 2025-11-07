@@ -20,5 +20,6 @@
         <file>icon/wrap.png</file>
         <file>../samp2_4App/images/BLD.BMP</file>
         <file>icon/about.png</file>
+        <file>icon/book.png</file>
     </qresource>
 </RCC>
