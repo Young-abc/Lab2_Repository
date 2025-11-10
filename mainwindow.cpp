@@ -7,6 +7,8 @@
 #include "qfiledialog.h"
 #include "QMessageBox"
 #include "QTextStream"
+#include "QColorDialog"
+#include "QFontDialog"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,6 +22,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->actionRecover->setEnabled(false);
     ui->actionReture->setEnabled(false);
 
+    QPlainTextEdit::LineWrapMode mode = ui->TextEdit->lineWrapMode();
+
+    if( mode == QTextEdit::NoWrap){
+        ui->TextEdit->setLineWrapMode(QPlainTextEdit::NoWrap);
+        ui->actionWrap->setChecked(false);
+    } else{
+        ui->TextEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);
+        ui->actionWrap->setChecked(true);
+    }
 
     textChanged = false;
     on_actionNew_triggered();
@@ -274,5 +285,65 @@ void MainWindow::on_TextEdit_copyAvailable(bool b)
 {
     ui->actionCopy->setEnabled(b);
     ui->actionCut->setEnabled(b);
+}
+
+
+void MainWindow::on_actionFontColor_triggered()
+{
+    QColor color = QColorDialog::getColor(Qt::black,this,"选择颜色");
+    if(color.isValid()){
+        // ui->TextEdit->setStyleSheet(QString("QPlainTextEdit {color: %1}").arg(color.name()));
+        QPalette palette = ui->TextEdit->palette();
+        palette.setColor(QPalette::Text, color); // 仅修改文本色
+        ui->TextEdit->setPalette(palette);
+    }
+}
+
+
+void MainWindow::on_actionBgcolor_triggered()
+{
+    QColor color = QColorDialog::getColor(Qt::black,this,"选择颜色");
+    if(color.isValid()){
+        QPalette palette = ui->TextEdit->palette();
+        palette.setColor(QPalette::Highlight, color);  // 选中文本的背景色
+        palette.setColor(QPalette::HighlightedText, ui->TextEdit->palette().color(QPalette::Text));  // 确保选中文本颜色与原文本一致
+        ui->TextEdit->setPalette(palette);
+    }
+}
+
+
+void MainWindow::on_actionEdiBgcolor_triggered()
+{
+    QColor color = QColorDialog::getColor(Qt::black,this,"选择颜色");
+    if(color.isValid()){
+        // ui->TextEdit->setStyleSheet(QString("QPlainTextEdit {background-color: %1}").arg(color.name()));
+        QPalette palette = ui->TextEdit->palette();
+        palette.setColor(QPalette::Base, color); // 仅修改文本色
+        ui->TextEdit->setPalette(palette);
+    }
+}
+
+
+void MainWindow::on_actionWrap_triggered()
+{
+    QPlainTextEdit::LineWrapMode mode = ui->TextEdit->lineWrapMode();
+
+    if( mode == QTextEdit::NoWrap){
+        ui->TextEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);
+        ui->actionWrap->setChecked(true);
+    } else{
+        ui->TextEdit->setLineWrapMode(QPlainTextEdit::NoWrap);
+        ui->actionWrap->setChecked(false);
+    }
+}
+
+
+void MainWindow::on_actionFont_triggered()
+{
+    bool ok = false;
+    QFont font = QFontDialog::getFont(&ok,this);
+
+    if(ok)
+        ui->TextEdit->setFont(font);
 }
 

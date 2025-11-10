@@ -53,6 +53,16 @@ private slots:
 
     void on_TextEdit_copyAvailable(bool b);
 
+    void on_actionFontColor_triggered();
+
+    void on_actionBgcolor_triggered();
+
+    void on_actionEdiBgcolor_triggered();
+
+    void on_actionWrap_triggered();
+
+    void on_actionFont_triggered();
+
 private:
     Ui::MainWindow *ui;
 

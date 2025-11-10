@@ -351,6 +351,9 @@
    </property>
   </action>
   <action name="actionWrap">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/icon/wrap.png</normaloff>:/icon/wrap.png</iconset>
