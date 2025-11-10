@@ -347,3 +347,32 @@ void MainWindow::on_actionFont_triggered()
         ui->TextEdit->setFont(font);
 }
 
+
+void MainWindow::on_actionToolBar_triggered()
+{
+    // 取反当前工具栏的可见状态
+    bool isVisible = ui->toolBar->isVisible();
+    ui->toolBar->setVisible(!isVisible);
+
+    // 同步更新菜单项的勾选状态（直观显示当前状态）
+    ui->actionToolBar->setChecked(!isVisible);
+}
+
+
+void MainWindow::on_actionStatusBar_triggered()
+{
+    // 状态栏的显示/隐藏通过setVisible控制
+    bool isVisible = statusBar()->isVisible();
+    statusBar()->setVisible(!isVisible);
+
+    // 同步菜单项勾选状态
+    ui->actionStatusBar->setChecked(!isVisible);
+}
+
+
+void MainWindow::on_actionExit_triggered()
+{
+    if(userEditConfirmed())
+        exit(0);
+}
+
