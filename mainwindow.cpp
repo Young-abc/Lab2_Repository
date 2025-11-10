@@ -14,6 +14,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->actionCopy->setEnabled(false);
+    ui->actionPaste->setEnabled(false);
+    ui->actionCut->setEnabled(false);
+    ui->actionRecover->setEnabled(false);
+    ui->actionReture->setEnabled(false);
+
+
     textChanged = false;
     on_actionNew_triggered();
 
@@ -205,5 +212,67 @@ bool MainWindow::userEditConfirmed()
         }
     }
     return true;
+}
+
+
+void MainWindow::on_actionReture_triggered()
+{
+    // 调用QTextEdit的撤销功能
+    ui->TextEdit->undo();
+}
+
+
+void MainWindow::on_actionRecover_triggered()
+{
+    // 调用QTextEdit的恢复功能（撤销的逆操作）
+    ui->TextEdit->redo();
+}
+
+
+void MainWindow::on_actionCut_triggered()
+{
+    // 剪切选中的文本到剪贴板（前提是有选中内容）
+    ui->TextEdit->cut();
+    ui->actionPaste->setEnabled(true);
+}
+
+
+void MainWindow::on_actionCopy_triggered()
+{
+    // 复制选中的文本到剪贴板
+    ui->TextEdit->copy();
+    ui->actionPaste->setEnabled(true);
+}
+
+
+void MainWindow::on_actionPaste_triggered()
+{
+    // 将剪贴板中的内容粘贴到当前光标位置
+    ui->TextEdit->paste();
+}
+
+
+void MainWindow::on_actionSelectAll_triggered()
+{
+    ui->TextEdit->selectAll();
+}
+
+
+void MainWindow::on_TextEdit_redoAvailable(bool b)
+{
+    ui->actionRecover->setEnabled(b);
+}
+
+
+void MainWindow::on_TextEdit_undoAvailable(bool b)
+{
+    ui->actionReture->setEnabled(b);
+}
+
+
+void MainWindow::on_TextEdit_copyAvailable(bool b)
+{
+    ui->actionCopy->setEnabled(b);
+    ui->actionCut->setEnabled(b);
 }
 

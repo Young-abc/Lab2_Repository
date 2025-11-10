@@ -35,6 +35,24 @@ private slots:
 
     void on_TextEdit_textChanged();
 
+    void on_actionReture_triggered();
+
+    void on_actionRecover_triggered();
+
+    void on_actionCut_triggered();
+
+    void on_actionCopy_triggered();
+
+    void on_actionPaste_triggered();
+
+    void on_actionSelectAll_triggered();
+
+    void on_TextEdit_redoAvailable(bool b);
+
+    void on_TextEdit_undoAvailable(bool b);
+
+    void on_TextEdit_copyAvailable(bool b);
+
 private:
     Ui::MainWindow *ui;
 
