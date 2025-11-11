@@ -31,7 +31,7 @@
      <number>1</number>
     </property>
     <item>
-     <widget class="QPlainTextEdit" name="TextEdit"/>
+     <widget class="CodeEditor" name="TextEdit"/>
     </item>
    </layout>
   </widget>
@@ -366,6 +366,9 @@
    </property>
   </action>
   <action name="actionShowLineNum">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/icon/linenum.png</normaloff>:/icon/linenum.png</iconset>
@@ -463,6 +466,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CodeEditor</class>
+   <extends>QPlainTextEdit</extends>
+   <header location="global">codeeditor.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="res.qrc"/>
  </resources>

@@ -19,7 +19,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>17</x>
@@ -67,7 +67,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="searchText_2"/>
+         <widget class="QLineEdit" name="targetText"/>
         </item>
        </layout>
       </item>
@@ -97,7 +97,7 @@
           <property name="title">
            <string>方向</string>
           </property>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -139,14 +139,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="btReplace">
         <property name="text">
          <string>替换(&amp;R)</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="btReplaceAll">
         <property name="text">
          <string>全部替换(&amp;A)</string>
         </property>

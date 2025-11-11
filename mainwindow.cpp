@@ -35,11 +35,11 @@ MainWindow::MainWindow(QWidget *parent)
     textChanged = false;
     on_actionNew_triggered();
 
-    statusLabel.setMaximumWidth(150);
+    statusLabel.setMaximumWidth(180);
     statusLabel.setText("length："+QString::number(0)+"  lines："+QString::number(1));
     ui->statusbar->addPermanentWidget(&statusLabel);
 
-    statusCursorLabel.setMaximumWidth(150);
+    statusCursorLabel.setMaximumWidth(180);
     statusCursorLabel.setText("Ln："+QString::number(0)+"  Col："+QString::number(1));
     ui->statusbar->addPermanentWidget(&statusCursorLabel);
 
@@ -63,14 +63,14 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionFind_triggered()
 {
-    FindDialog dig;
+    FindDialog dig(this,ui->TextEdit);
     dig.exec();
 }
 
 
 void MainWindow::on_actionReplace_triggered()
 {
-    ReplaceDialog dig;
+    ReplaceDialog dig(this,ui->TextEdit);
     dig.exec();
 }
 
@@ -194,6 +194,7 @@ void MainWindow::on_TextEdit_textChanged()
         this->setWindowTitle("*" + this->windowTitle());
         textChanged = true;
     }
+    statusLabel.setText("length："+QString::number(ui->TextEdit->toPlainText().length())+"  lines："+QString::number(ui->TextEdit->document()->lineCount()));
 }
 
 bool MainWindow::userEditConfirmed()
@@ -374,5 +375,36 @@ void MainWindow::on_actionExit_triggered()
 {
     if(userEditConfirmed())
         exit(0);
+}
+
+
+void MainWindow::on_TextEdit_cursorPositionChanged()
+{
+    int col = 0;
+    int ln = 0;
+    int flg = -1;
+    int pos = ui->TextEdit->textCursor().position();
+    QString text = ui->TextEdit->toPlainText();
+
+    for(int i = 0; i<pos;i++){
+        if(text[i]=='\n'){
+            ln++;
+            flg = i;
+        }
+    }
+    flg++;
+    col = pos-flg;
+    statusCursorLabel.setText("Ln："+QString::number(ln+1)+"  Col："+QString::number(col+1));
+}
+
+
+void MainWindow::on_actionShowLineNum_triggered()
+{
+    // 切换行号可见状态（取反当前状态）
+    bool isVisible = ui->TextEdit->isLineNumberVisible();
+    ui->TextEdit->setLineNumberVisible(!isVisible);
+
+    // 同步更新菜单项的勾选状态（直观显示当前状态）
+    ui->actionShowLineNum->setChecked(!isVisible);
 }
 
