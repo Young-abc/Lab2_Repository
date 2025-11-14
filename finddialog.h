@@ -19,6 +19,8 @@ public:
 private slots:
     void on_btFindNext_clicked();
 
+    void on_btCancel_clicked();
+
 private:
     Ui::FindDialog *ui;
     QPlainTextEdit* pTextEdit;

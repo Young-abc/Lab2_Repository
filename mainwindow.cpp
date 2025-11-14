@@ -79,7 +79,8 @@ void MainWindow::on_actionReplace_triggered()
 void MainWindow::on_actionNew_triggered()
 {
     if(textChanged){
-        userEditConfirmed();
+        if(!userEditConfirmed())
+            return;
     }
 
     ui->TextEdit->clear();
@@ -88,19 +89,21 @@ void MainWindow::on_actionNew_triggered()
     textChanged=false;
 }
 
-
+//打开文件
 void MainWindow::on_actionOpen_triggered()
 {
-    // if()
-
+    int flag = 0; //用于标记用户选择打开文件前文本修改状态
     if(textChanged){
-        userEditConfirmed();
+        flag = 1;
+        if(!userEditConfirmed())
+            return; //当用户确认框选择取消时,停止打开文件操作
     }
 
     QString filename = QFileDialog::getOpenFileName(this,"打开文件",".",tr("Text files (*.txt);;All(*.*)"));
 
     // 用户取消选择文件
     if (filename.isEmpty()) {
+        if(flag==1) textChanged=true; //当用户确认框选择no但又没有选择打开文件时,恢复文本原来状态
         return;
     }
 
@@ -110,9 +113,6 @@ void MainWindow::on_actionOpen_triggered()
         QMessageBox::warning(this,"..","打开文件失败");
         return;
     }
-
-
-    // filePath = filename;
 
     QTextStream in(&file);
     QString text = in.readAll();
@@ -124,10 +124,9 @@ void MainWindow::on_actionOpen_triggered()
     textChanged=false;
 }
 
-
+//保存文件
 void MainWindow::on_actionSave_triggered()
 {
-
 
     // 如果当前文件路径为空（新文件未保存过），则调用"另存为"
     if (filePath.isEmpty()) {
@@ -160,6 +159,7 @@ void MainWindow::on_actionSave_triggered()
 }
 
 
+//另存为
 void MainWindow::on_actionSaveAs_triggered()
 {
     QString filename = QFileDialog::getOpenFileName(this,"打开文件",".",tr("Text files (*.txt);;All(*.*)"));
@@ -171,7 +171,7 @@ void MainWindow::on_actionSaveAs_triggered()
 
     QFile file(filename);
 
-    if(!file.open(QFile::ReadOnly|QFile::Text)){
+    if(!file.open(QFile::WriteOnly|QFile::Text)){
         QMessageBox::warning(this,"..","打开文件失败");
         return;
     }
@@ -187,16 +187,19 @@ void MainWindow::on_actionSaveAs_triggered()
     textChanged=false;
 }
 
-
+// 文本内容改变时处理函数
 void MainWindow::on_TextEdit_textChanged()
 {
     if(!textChanged){
         this->setWindowTitle("*" + this->windowTitle());
         textChanged = true;
     }
+
+    // 更新状态栏显示的文本内容长度、行数
     statusLabel.setText("length："+QString::number(ui->TextEdit->toPlainText().length())+"  lines："+QString::number(ui->TextEdit->document()->lineCount()));
 }
 
+// 用户确认函数
 bool MainWindow::userEditConfirmed()
 {
     QString path = (filePath !="")?filePath:"无标题.txt";
@@ -226,44 +229,39 @@ bool MainWindow::userEditConfirmed()
     return true;
 }
 
-
+// 撤销
 void MainWindow::on_actionReture_triggered()
 {
-    // 调用QTextEdit的撤销功能
     ui->TextEdit->undo();
 }
 
-
+// 恢复
 void MainWindow::on_actionRecover_triggered()
 {
-    // 调用QTextEdit的恢复功能（撤销的逆操作）
     ui->TextEdit->redo();
 }
 
-
+// 剪切
 void MainWindow::on_actionCut_triggered()
 {
-    // 剪切选中的文本到剪贴板（前提是有选中内容）
     ui->TextEdit->cut();
     ui->actionPaste->setEnabled(true);
 }
 
-
+// 复制
 void MainWindow::on_actionCopy_triggered()
 {
-    // 复制选中的文本到剪贴板
     ui->TextEdit->copy();
     ui->actionPaste->setEnabled(true);
 }
 
-
+// 粘贴
 void MainWindow::on_actionPaste_triggered()
 {
-    // 将剪贴板中的内容粘贴到当前光标位置
     ui->TextEdit->paste();
 }
 
-
+// 全选
 void MainWindow::on_actionSelectAll_triggered()
 {
     ui->TextEdit->selectAll();
@@ -288,43 +286,41 @@ void MainWindow::on_TextEdit_copyAvailable(bool b)
     ui->actionCut->setEnabled(b);
 }
 
-
+// 字体颜色
 void MainWindow::on_actionFontColor_triggered()
 {
     QColor color = QColorDialog::getColor(Qt::black,this,"选择颜色");
     if(color.isValid()){
-        // ui->TextEdit->setStyleSheet(QString("QPlainTextEdit {color: %1}").arg(color.name()));
         QPalette palette = ui->TextEdit->palette();
-        palette.setColor(QPalette::Text, color); // 仅修改文本色
+        palette.setColor(QPalette::Text, color);
         ui->TextEdit->setPalette(palette);
     }
 }
 
-
+// 字体背景色（选中时的背景色）
 void MainWindow::on_actionBgcolor_triggered()
 {
     QColor color = QColorDialog::getColor(Qt::black,this,"选择颜色");
     if(color.isValid()){
         QPalette palette = ui->TextEdit->palette();
         palette.setColor(QPalette::Highlight, color);  // 选中文本的背景色
-        palette.setColor(QPalette::HighlightedText, ui->TextEdit->palette().color(QPalette::Text));  // 确保选中文本颜色与原文本一致
+        palette.setColor(QPalette::HighlightedText, ui->TextEdit->palette().color(QPalette::Text));
         ui->TextEdit->setPalette(palette);
     }
 }
 
-
+// 编辑器背景色
 void MainWindow::on_actionEdiBgcolor_triggered()
 {
     QColor color = QColorDialog::getColor(Qt::black,this,"选择颜色");
     if(color.isValid()){
-        // ui->TextEdit->setStyleSheet(QString("QPlainTextEdit {background-color: %1}").arg(color.name()));
         QPalette palette = ui->TextEdit->palette();
-        palette.setColor(QPalette::Base, color); // 仅修改文本色
+        palette.setColor(QPalette::Base, color);
         ui->TextEdit->setPalette(palette);
     }
 }
 
-
+// 自动换行
 void MainWindow::on_actionWrap_triggered()
 {
     QPlainTextEdit::LineWrapMode mode = ui->TextEdit->lineWrapMode();
@@ -338,7 +334,7 @@ void MainWindow::on_actionWrap_triggered()
     }
 }
 
-
+// 字体
 void MainWindow::on_actionFont_triggered()
 {
     bool ok = false;
@@ -348,25 +344,19 @@ void MainWindow::on_actionFont_triggered()
         ui->TextEdit->setFont(font);
 }
 
-
+// 工具栏
 void MainWindow::on_actionToolBar_triggered()
 {
-    // 取反当前工具栏的可见状态
     bool isVisible = ui->toolBar->isVisible();
     ui->toolBar->setVisible(!isVisible);
-
-    // 同步更新菜单项的勾选状态（直观显示当前状态）
     ui->actionToolBar->setChecked(!isVisible);
 }
 
-
+// 状态栏
 void MainWindow::on_actionStatusBar_triggered()
 {
-    // 状态栏的显示/隐藏通过setVisible控制
     bool isVisible = statusBar()->isVisible();
     statusBar()->setVisible(!isVisible);
-
-    // 同步菜单项勾选状态
     ui->actionStatusBar->setChecked(!isVisible);
 }
 
@@ -377,7 +367,7 @@ void MainWindow::on_actionExit_triggered()
         exit(0);
 }
 
-
+// 更新状态栏显示的光标位置
 void MainWindow::on_TextEdit_cursorPositionChanged()
 {
     int col = 0;
@@ -397,14 +387,14 @@ void MainWindow::on_TextEdit_cursorPositionChanged()
     statusCursorLabel.setText("Ln："+QString::number(ln+1)+"  Col："+QString::number(col+1));
 }
 
-
+// 自动换行按钮
 void MainWindow::on_actionShowLineNum_triggered()
 {
-    // 切换行号可见状态（取反当前状态）
+    // 切换行号可见状态
     bool isVisible = ui->TextEdit->isLineNumberVisible();
     ui->TextEdit->setLineNumberVisible(!isVisible);
 
-    // 同步更新菜单项的勾选状态（直观显示当前状态）
+    // 更新菜单项的勾选状态
     ui->actionShowLineNum->setChecked(!isVisible);
 }
 

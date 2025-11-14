@@ -8,6 +8,7 @@ ReplaceDialog::ReplaceDialog(QWidget *parent,QPlainTextEdit* textEdit)
 {
     ui->setupUi(this);
     pTextEdit = textEdit;
+    ui->rbDown->setChecked(true);
 }
 
 ReplaceDialog::~ReplaceDialog()
@@ -15,6 +16,7 @@ ReplaceDialog::~ReplaceDialog()
     delete ui;
 }
 
+// 查找下一条
 void ReplaceDialog::on_btFindNext_clicked()
 {
     QString target = ui->searchText->text();
@@ -57,6 +59,7 @@ void ReplaceDialog::on_btFindNext_clicked()
     }
 }
 
+// 替换
 void ReplaceDialog::on_btReplace_clicked()
 {
     QString target = ui->searchText->text();
@@ -65,17 +68,56 @@ void ReplaceDialog::on_btReplace_clicked()
 
     QString selText = pTextEdit->textCursor().selectedText();
 
+    if (target.isEmpty() || pTextEdit == nullptr) {
+        QMessageBox::information(this, "提示", "请输入要替换的文本");
+        return;
+    }
+
     if(selText == target)
         pTextEdit->insertPlainText(to);
 }
 
-
+// 替换全部
 void ReplaceDialog::on_btReplaceAll_clicked()
 {
+    QString target = ui->searchText->text();
+    QString to = ui->targetText->text();
 
+    if (target.isEmpty() || pTextEdit == nullptr) {
+        QMessageBox::information(this, "提示", "请输入要替换的文本");
+        return;
+    }
+
+    QString text = pTextEdit->toPlainText();
+    Qt::CaseSensitivity caseSensitivity = ui->cbCaseSensetive->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive;
+
+    // 统计替换次数
+    int count = 0;
+    int pos = 0;
+    QString newText = text;
+
+    // 循环查找并替换所有匹配内容
+    while (true) {
+        int index = newText.indexOf(target, pos, caseSensitivity);
+        if (index == -1) break;
+
+        newText.replace(index, target.length(), to);
+        count++;
+        pos = index + to.length();  // 从替换后的位置继续查找
+    }
+
+    if (count > 0) {
+        // 将替换后的内容写回编辑器
+        pTextEdit->setPlainText(newText);
+        QMessageBox::information(this, "替换完成",
+                                 QString("共替换 %1 处").arg(count));
+    } else {
+        QMessageBox::information(this, "提示",
+                                 QString("找不到 '%1'").arg(target));
+    }
 }
 
-
+// 取消按钮
 void ReplaceDialog::on_btCancel_clicked()
 {
     accept();

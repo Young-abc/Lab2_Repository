@@ -17,6 +17,7 @@ FindDialog::~FindDialog()
     delete ui;
 }
 
+// 查找下一条
 void FindDialog::on_btFindNext_clicked()
 {
     QString target = ui->searchText->text();
@@ -57,5 +58,11 @@ void FindDialog::on_btFindNext_clicked()
         msg.setStandardButtons(QMessageBox::Ok);
         msg.exec();
     }
+}
+
+// 取消按钮
+void FindDialog::on_btCancel_clicked()
+{
+    accept();
 }
 
